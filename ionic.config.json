@@ -1,0 +1,7 @@
+{
+  "name": "Noticias al día",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
