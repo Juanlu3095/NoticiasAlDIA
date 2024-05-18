@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <app-header></app-header>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+ 
+  @if (noticia) {
+  <ion-text class="ion-text-center">
+    <h1 class="page-title">{{ noticia.title }}</h1>
+  </ion-text>
+
+  <ion-grid>
+    <ion-card>
+      
+        <ion-img src="{{ noticia.image }}" alt="imagen"></ion-img>
+        <br>
+        <ion-text>
+          <ion-label>
+            <h3>{{ fecha | date:'fullDate' }}</h3>
+            <h3 class="autor"> Autor: {{ noticia.authors }}</h3>
+            <hr class="ion-row-gray">
+            <span *ngIf="contenido" class="contenido" [innerHtml]="this.contenido"></span>
+          </ion-label>
+          
+          <hr class="ion-row-gray">
+          <p>Lee la noticia en el sitio web de su autor <a href="{{ noticia.url }}">aquí</a>. </p>
+      </ion-text>
+      
+    </ion-card>
+  </ion-grid>
+
+  }
+
+</ion-content>

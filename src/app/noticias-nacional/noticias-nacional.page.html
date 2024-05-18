@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <app-header></app-header>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+    <ion-text class="ion-text-center">
+      <h1 class="page-title">Noticias en España</h1>
+    </ion-text>
+
+  <ion-grid>
+
+    <ion-card>
+      @for (noticia of noticias; track noticia.id) {
+      <ion-item lines="none" [routerLink]="['/noticia-individual', noticia.url]">
+        <ion-thumbnail slot="start">
+          <img src="{{ noticia.image }}" alt="imagen">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ noticia.title }}</h2>
+          <p>{{ noticia.author }}</p>
+        </ion-label>
+      </ion-item>
+      }
+    </ion-card>
+
+  </ion-grid>
+
+</ion-content>

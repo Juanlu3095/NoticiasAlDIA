@@ -1,0 +1,19 @@
+ion-item{
+    display: flex;
+    flex-direction: row;
+}
+
+ion-card{
+    background: none;
+}
+
+span.contenido{
+    color: white;
+    font-size: 16px;
+}
+
+hr{
+    margin: 1rem 0;
+    background: var(--ion-row-gray);
+    height: 1px,
+}

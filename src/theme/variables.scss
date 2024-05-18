@@ -1,2 +1,10 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+:root{
+    --ion-row-gray: #949494;
+}
+
+.page-title{
+    font-size: 20px;
+}

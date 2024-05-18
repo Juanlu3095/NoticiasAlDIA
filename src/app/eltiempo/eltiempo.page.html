@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <app-header></app-header>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-text class="ion-text-center">
+    <h1 class="page-title">El tiempo</h1>
+  </ion-text>
+  
+  <ion-segment [scrollable]="true" value="home" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="home">
+      <ion-text>Nacional</ion-text>
+    </ion-segment-button>
+    <ion-segment-button value="heart">
+      <ion-text>Local</ion-text>
+    </ion-segment-button>
+    <ion-segment-button value="pin">
+      <ion-text>Isobaras</ion-text>
+    </ion-segment-button>
+    <ion-segment-button value="star">
+      <ion-text>Opcion 4</ion-text>
+    </ion-segment-button>
+  </ion-segment>
+  
+  <!-- El contenido que se mostrará dependiendo del botón seleccionado -->
+  @switch (selectedSegment) {
+
+    @case ('home') {
+      <p>Hola soy una casa</p>
+    }
+
+    @case ('heart') {
+      <p>Hola soy un corason</p>
+    }
+
+    @case ('pin') {
+      <p>Hola soy un pin</p>
+    }
+
+    @case ('star') {
+      <p>Hola soy una estrella</p>
+    }
+
+    @default {
+      <p>Este es el defecto</p>
+    }
+  }
+
+</ion-content>

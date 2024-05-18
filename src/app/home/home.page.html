@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  
+  <app-header></app-header>
+  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-text class="saludo">
+    <h1>¡Hola, Juani!</h1>
+
+    <p> Aquí tienes algunas recomendaciones: </p>
+  </ion-text>
+
+  <ion-grid>
+    <!-- El tiempo -->
+    <ion-card href="">
+      <ion-card-header>
+        <ion-card-title>El tiempo</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Consulta la previsión meteorológica.
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Últimas noticias España-->
+    <ion-card href="/noticias-nacional">
+      <ion-card-header>
+        <ion-card-title>Últimas noticias de España</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Las últimas novedades a nivel nacional.
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Noticias Internacionales -->
+    <ion-card href="/noticias-internacional">
+      <ion-card-header>
+        <ion-card-title>Noticias Internacionales</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Las últimas novedades en todo el mundo.
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Noticias autonómicas -->
+    <ion-card href="/noticias-autonomica">
+      <ion-card-header>
+        <ion-card-title>Noticias CCAA</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Las últimas novedades en tu comunidad.
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Noticias locales -->
+    <ion-card href="/noticias-local">
+      <ion-card-header>
+        <ion-card-title>Noticias locales</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Las últimas novedades en tu provincia.
+      </ion-card-content>
+    </ion-card>
+
+  </ion-grid>
+  
+  <!-- Obtenemos mapa de isobaras -->
+  <!-- <img [src]="imagenUrl"> -->
+
+</ion-content>

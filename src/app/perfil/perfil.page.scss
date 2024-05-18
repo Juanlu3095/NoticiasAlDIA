@@ -1,0 +1,38 @@
+.datos-usuario{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+ion-text h1{
+    font-size: 20px;
+}
+
+.icon-perfil{
+    font-size: 5rem;
+}
+
+.user-data{
+    text-align: start;
+}
+
+ion-text.user-data-text{
+    display: flex;
+    flex-direction: column;
+}
+
+a.src-volver{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: white;
+}
+
+.logout{
+    margin-top: 2rem;
+}
+
+.guardar{
+    margin-top: 2rem;
+}
