@@ -1,0 +1,43 @@
+.btn-hours{
+    text-align: center;
+}
+
+.card-icon{
+    width: 40%;
+}
+
+.col-icon{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.col-header{
+    background-color: var(--ion-primary);
+    color: white;
+}
+
+.col{
+    border: 0.5px solid lightgray;
+}
+
+
+// Customize Slider
+#tickmarks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 ;
+    }
+ 
+    #tickmarks p {
+     position: relative;
+     display: flex;
+     justify-content: center;
+     text-align: center;
+     width: 1px;
+     background: #ccd3da;
+     height: 5px;
+     line-height: 40px;
+     margin: 0 0 20px 0;
+     font-family: 'Archivo';
+     font-size: 12px;
+    }

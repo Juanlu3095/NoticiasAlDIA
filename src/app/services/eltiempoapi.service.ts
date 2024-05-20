@@ -123,11 +123,16 @@ export class EltiempoapiService {
 
   // Devuelve Tº, humedad, precipitaciones probabilidad, tiempo en texto. El código de municipio viene en getMunicipios
   getPrediccionMunicipio(){
-    return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/29067', {
+    return this.http.get<any>('https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/29067', {
       params: {
         'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
       },
-    })
+    }).pipe(
+      switchMap( (response) => { // Switch map transforma valores de un observable en otro observable y los fusiona en uno solo, por tanto devuelve la última llamada HTTP
+        const url = response.datos;
+        return this.http.get(url); // Los datos que se devuelven son en formato binario y para obtener la img hay que usar blob para guardarlo en memoria
+      })
+    )
   }
 
   getPrediccionPlaya(){

@@ -1,0 +1,55 @@
+<ion-card *ngFor="let dia of datosAemet">
+  <ion-card-header>
+    <ion-grid>
+      <ion-row class="row-local">
+        <ion-col size="7">
+          <ion-card-subtitle>{{dia.fecha | date:'longDate'}}</ion-card-subtitle>
+          <ion-card-title >Málaga</ion-card-title>
+        </ion-col>
+          
+        <ion-col class="col-icon">
+          <ion-img class="card-icon" src="../../assets/dia-y-noche.png" alt="icono-tiempo"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <br>
+
+    <!-- TABLA DE DATOS METEOROLÓGICOS -->
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Prob. Lluvia</ion-col>
+        <ion-col class="col">{{ dia.probPrecipitacion[this.selectedSegment].value}}%</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Estado cielo</ion-col>
+        <ion-col class="col">{{ dia.estadoCielo[this.selectedSegment].descripcion }}</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Viento</ion-col>
+        <ion-col class="col">{{ dia.viento[this.selectedSegment].velocidad }} km/h {{ dia.viento[this.selectedSegment].direccion }}</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Tª mín/máx</ion-col>
+        <ion-col class="col">{{dia.temperatura.minima}}/{{dia.temperatura.maxima}} °C</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Hum. Rel. mín/máx</ion-col>
+        <ion-col class="col">{{dia.humedadRelativa.minima}}/{{dia.humedadRelativa.maxima}} %</ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col class="col col-header">Fecha</ion-col>
+        <ion-col class="col">{{dia.fecha | date:'longDate'}}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card-content>
+</ion-card>

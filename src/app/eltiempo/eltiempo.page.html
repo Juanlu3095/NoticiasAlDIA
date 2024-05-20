@@ -12,7 +12,7 @@
     <ion-segment-button value="home">
       <ion-text>Nacional</ion-text>
     </ion-segment-button>
-    <ion-segment-button value="heart">
+    <ion-segment-button value="local">
       <ion-text>Local</ion-text>
     </ion-segment-button>
     <ion-segment-button value="pin">
@@ -30,8 +30,8 @@
       <p>Hola soy una casa</p>
     }
 
-    @case ('heart') {
-      <p>Hola soy un corason</p>
+    @case ('local') {
+      <app-eltiempolocal></app-eltiempolocal>
     }
 
     @case ('pin') {
