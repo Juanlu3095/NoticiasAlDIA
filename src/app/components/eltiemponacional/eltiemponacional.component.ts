@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-eltiemponacional',
   templateUrl: './eltiemponacional.component.html',
   styleUrls: ['./eltiemponacional.component.scss'],
+  standalone: true
 })
 export class EltiemponacionalComponent  implements OnInit {
 

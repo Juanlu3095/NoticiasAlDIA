@@ -8,8 +8,8 @@
     <h1 class="page-title">El tiempo</h1>
   </ion-text>
   
-  <ion-segment [scrollable]="true" value="home" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="home">
+  <ion-segment [scrollable]="true" value="nacional" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="nacional">
       <ion-text>Nacional</ion-text>
     </ion-segment-button>
     <ion-segment-button value="local">
@@ -18,16 +18,13 @@
     <ion-segment-button value="pin">
       <ion-text>Isobaras</ion-text>
     </ion-segment-button>
-    <ion-segment-button value="star">
-      <ion-text>Opcion 4</ion-text>
-    </ion-segment-button>
   </ion-segment>
   
   <!-- El contenido que se mostrará dependiendo del botón seleccionado -->
   @switch (selectedSegment) {
 
-    @case ('home') {
-      <p>Hola soy una casa</p>
+    @case ('nacional') {
+      <app-eltiemponacional></app-eltiemponacional>
     }
 
     @case ('local') {
@@ -38,13 +35,10 @@
       <p>Hola soy un pin</p>
     }
 
-    @case ('star') {
-      <p>Hola soy una estrella</p>
-    }
-
     @default {
       <p>Este es el defecto</p>
     }
   }
+  
 
 </ion-content>

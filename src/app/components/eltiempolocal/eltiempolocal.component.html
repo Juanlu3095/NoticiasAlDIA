@@ -4,7 +4,7 @@
       <ion-row class="row-local">
         <ion-col size="7">
           <ion-card-subtitle>{{dia.fecha | date:'longDate'}}</ion-card-subtitle>
-          <ion-card-title >Málaga</ion-card-title>
+          <ion-card-title >{{ municipio }}</ion-card-title>
         </ion-col>
           
         <ion-col class="col-icon">
@@ -15,8 +15,6 @@
   </ion-card-header>
 
   <ion-card-content>
-
-    <br>
 
     <!-- TABLA DE DATOS METEOROLÓGICOS -->
     <ion-grid>
@@ -43,11 +41,6 @@
       <ion-row class="ion-text-center">
         <ion-col class="col col-header">Hum. Rel. mín/máx</ion-col>
         <ion-col class="col">{{dia.humedadRelativa.minima}}/{{dia.humedadRelativa.maxima}} %</ion-col>
-      </ion-row>
-
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Fecha</ion-col>
-        <ion-col class="col">{{dia.fecha | date:'longDate'}}</ion-col>
       </ion-row>
     </ion-grid>
 
