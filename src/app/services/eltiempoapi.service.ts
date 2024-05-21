@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { switchMap } from 'rxjs';
+import { switchMap, map } from 'rxjs';
 import { text } from 'ionicons/icons';
 
 const apikeytiempo = environment.apikeyeltiempo;
@@ -28,7 +28,7 @@ export class EltiempoapiService {
   getinfouvi(){
     return this.http.get<any>(`https://opendata.aemet.es/opendata/api/prediccion/especifica/uvi/0`, { // Debemos poner <any> porque nos sale un error por el tipo de dato devuelto.
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       }
     }).pipe(
       switchMap( (response) => { // Switch map transforma valores de un observable en otro observable y los fusiona en uno solo, por tanto devuelve la última llamada HTTP
@@ -41,7 +41,7 @@ export class EltiempoapiService {
   getisobaras(){
     return this.http.get<any>('https://opendata.aemet.es/opendata/api/mapasygraficos/analisis', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       }
     }).pipe(
       switchMap( (response) => { // Switch map transforma valores de un observable en otro observable y los fusiona en uno solo, por tanto devuelve la última llamada HTTP
@@ -55,7 +55,7 @@ export class EltiempoapiService {
   getBalanceHidrico(año:number, decena:number){
     return this.http.get(`https://opendata.aemet.es/opendata/api/productos/climatologicos/balancehidrico/${año}/${decena}`, {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
       responseType: text
     } as Record<any, unknown>)
@@ -65,7 +65,7 @@ export class EltiempoapiService {
   getMunicipios(){
     return this.http.get('https://opendata.aemet.es/opendata/api/maestro/municipios', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
@@ -73,34 +73,44 @@ export class EltiempoapiService {
   getInfoMunicipio(){
     return this.http.get('https://opendata.aemet.es/opendata/api/maestro/municipio/44004', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
 
   // Predicción nacional para hoy en texto
   getPrediccionNacionalHoy(){
-    return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/nacional/hoy', {
+    return this.http.get<any>('https://opendata.aemet.es/opendata/api/prediccion/nacional/hoy', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
-    })
+    }).pipe(
+      switchMap(response => {
+        const datosUrl = response.datos;
+        return this.http.get(datosUrl, {responseType: 'text'}); // En este caso se obtiene un texto plano, por ello hay que indicar el tipo de respuesta para que no haya error.
+      })
+    );
   }
 
   // Predicción nacional para mañana en texto
   getPrediccionNacionalManana(){
-    return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/nacional/manana', {
+    return this.http.get<any>('https://opendata.aemet.es/opendata/api/prediccion/nacional/manana', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
-    })
+    }).pipe(
+      switchMap(response => {
+        const datosUrl = response.datos;
+        return this.http.get(datosUrl, {responseType: 'text'}); // En este caso se obtiene un texto plano, por ello hay que indicar el tipo de respuesta para que no haya error.
+      })
+    );
   }
 
   // Predicción nacional para pasado mañana en texto
   getPrediccionNacionalPasadomanana(){
     return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/nacional/pasadomanana', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
@@ -108,7 +118,7 @@ export class EltiempoapiService {
   getinfocosta(){
     return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/maritima/costera/costa/42', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
@@ -116,7 +126,7 @@ export class EltiempoapiService {
   getClimatologia(){
     return this.http.get('https://opendata.aemet.es/opendata/api/valores/climatologicos/diarios/datos/fechaini/2024-05-18/fechafin/2024-05-19/todasestaciones', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
@@ -125,7 +135,7 @@ export class EltiempoapiService {
   getPrediccionMunicipio(){
     return this.http.get<any>('https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/29067', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     }).pipe(
       switchMap( (response) => { // Switch map transforma valores de un observable en otro observable y los fusiona en uno solo, por tanto devuelve la última llamada HTTP
@@ -138,7 +148,7 @@ export class EltiempoapiService {
   getPrediccionPlaya(){
     return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/especifica/playa/301101', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }
@@ -147,7 +157,7 @@ export class EltiempoapiService {
   getPrediccionProvinciaHoy(){
     return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/provincia/hoy/29', {
       params: {
-        'api_key': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+        'api_key': apikeytiempo
       },
     })
   }

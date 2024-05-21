@@ -15,7 +15,7 @@
     <ion-segment-button value="local">
       <ion-text>Local</ion-text>
     </ion-segment-button>
-    <ion-segment-button value="pin">
+    <ion-segment-button value="isobaras">
       <ion-text>Isobaras</ion-text>
     </ion-segment-button>
   </ion-segment>
@@ -31,8 +31,8 @@
       <app-eltiempolocal></app-eltiempolocal>
     }
 
-    @case ('pin') {
-      <p>Hola soy un pin</p>
+    @case ('isobaras') {
+      <app-eltiempoisobaras></app-eltiempoisobaras>
     }
 
     @default {

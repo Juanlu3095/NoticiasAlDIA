@@ -27,12 +27,9 @@ export class EltiempolocalComponent  implements OnInit {
 
   ngOnInit() {
   
-
     this.eltiempoapiservice.getPrediccionMunicipio().subscribe( (respuesta: any) => {
       this.datosAemet = respuesta[0].prediccion.dia;
       this.municipio = respuesta[0].nombre;
-
-      console.log('Estos son los datos: ', this.datosAemet)
     })
   
 
