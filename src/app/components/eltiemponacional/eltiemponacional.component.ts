@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonText } from '@ionic/angular/standalone';
 import { EltiempoapiService } from 'src/app/services/eltiempoapi.service';
-import { ChatgptService } from 'src/app/services/chatgpt.service';
 
 @Component({
   selector: 'app-eltiemponacional',
@@ -16,7 +15,7 @@ export class EltiemponacionalComponent  implements OnInit {
   textoCorregidoHoy: string;
   textoCorregidoHoyFinal: string;
 
-  constructor(private eltiemposervice: EltiempoapiService, private chatgpt: ChatgptService) { }
+  constructor(private eltiemposervice: EltiempoapiService) { }
 
   ngOnInit() {
     this.eltiemposervice.getPrediccionNacionalHoy().subscribe( (response) => {
