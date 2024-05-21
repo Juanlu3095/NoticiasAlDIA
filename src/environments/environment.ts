@@ -5,7 +5,18 @@
 export const environment = {
   production: false,
   apikeynews: /* '7b5754aa5f5840c99f332c5af33a3e6d' */ '639adde432434db5ade04e53a8a795a5' /* '415957ccb430429ea24ec2d9b7f28cff' */,
-  apikeyeltiempo: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE'
+  apikeyeltiempo: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGV2dG9kYXkyNUBnbWFpbC5jb20iLCJqdGkiOiI5ZDRjOGM3Mi1lMWYwLTRmZTMtOWU3ZC1kYjk4MGM4NGY3ZjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcxNTI3NjAxOSwidXNlcklkIjoiOWQ0YzhjNzItZTFmMC00ZmUzLTllN2QtZGI5ODBjODRmN2Y1Iiwicm9sZSI6IiJ9.eJMFRQdWfiJceDV4yyOGmeE5BXcck12hIi28uvcBBCE',
+
+  // Configuración de FIREBASE
+  firebaseConfig: {
+    apiKey: "AIzaSyCg3G4SvBuulkLDtN_praP-JXxZMpyOYsc",
+    authDomain: "noticiasaldia-app.firebaseapp.com",
+    projectId: "noticiasaldia-app",
+    storageBucket: "noticiasaldia-app.appspot.com",
+    messagingSenderId: "665761812694",
+    appId: "1:665761812694:web:a12d9eb74c72bd15edb977",
+    measurementId: "G-864NCZ14JM"
+  }
 };
 
 /*

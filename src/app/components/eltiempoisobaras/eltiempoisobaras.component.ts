@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { } from '@ionic/angular/standalone';
+import { IonImg } from '@ionic/angular/standalone';
 import { EltiempoapiService } from 'src/app/services/eltiempoapi.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { EltiempoapiService } from 'src/app/services/eltiempoapi.service';
   templateUrl: './eltiempoisobaras.component.html',
   styleUrls: ['./eltiempoisobaras.component.scss'],
   standalone: true,
-  imports: [],
+  imports: [IonImg, ],
 })
 export class EltiempoisobarasComponent  implements OnInit {
 
@@ -17,8 +17,7 @@ export class EltiempoisobarasComponent  implements OnInit {
 
   ngOnInit() {
     this.eltiemposervice.getisobaras().subscribe( (response) => {
-      console.log(response);
-      this.mapa = URL.createObjectURL(response);
+      this.mapa = URL.createObjectURL(response); // Obtenemos la url guardada con el blob
     })
   }
 

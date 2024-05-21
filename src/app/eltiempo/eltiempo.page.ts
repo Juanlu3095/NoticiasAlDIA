@@ -23,32 +23,7 @@ export class EltiempoPage implements OnInit {
 
   segmentChanged(event: any) {
     this.selectedSegment = event.detail.value;
-    console.log(this.selectedSegment);
-
   }
-
-  /* loadComponent(segment: string) {
-    switch (segment) {
-      case 'home':
-        console.log('Estamos en el home');
-        break;
-
-      case 'local':
-        console.log('Estamos en el local');
-        break;
-
-      case 'pin':
-        console.log('Estamos en el pin');
-        break;
-
-      case 'star':
-        console.log('Estamos en el star');
-        break;
-
-      default:
-        console.log('No se ha seleccionado nada');
-    }
-  } */
 
   ngOnInit() {
     this.selectedSegment = 'nacional';

@@ -13,31 +13,6 @@ export class EltiempoapiService {
 
   constructor(private http: HttpClient) { }
 
-  getProvincias(){
-    return this.http.get('https://www.el-tiempo.net/api/json/v2/provincias');
-  }
-
-  getTiempoProvincia(){
-    return this.http.get('https://www.el-tiempo.net/api/json/v2/provincias/29');
-  }
-
-  getTiempoMunicipio(){
-    return this.http.get('https://www.el-tiempo.net/api/json/v2/provincias/01/municipios/01001');
-  }
-
-  getinfouvi(){
-    return this.http.get<any>(`https://opendata.aemet.es/opendata/api/prediccion/especifica/uvi/0`, { // Debemos poner <any> porque nos sale un error por el tipo de dato devuelto.
-      params: {
-        'api_key': apikeytiempo
-      }
-    }).pipe(
-      switchMap( (response) => { // Switch map transforma valores de un observable en otro observable y los fusiona en uno solo, por tanto devuelve la última llamada HTTP
-        const url = response['datos'];
-        return this.http.get<any>(url);
-      })
-    )
-  }
-
   getisobaras(){
     return this.http.get<any>('https://opendata.aemet.es/opendata/api/mapasygraficos/analisis', {
       params: {
@@ -106,15 +81,6 @@ export class EltiempoapiService {
     );
   }
 
-  // Predicción nacional para pasado mañana en texto
-  getPrediccionNacionalPasadomanana(){
-    return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/nacional/pasadomanana', {
-      params: {
-        'api_key': apikeytiempo
-      },
-    })
-  }
-
   getinfocosta(){
     return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/maritima/costera/costa/42', {
       params: {
@@ -143,14 +109,6 @@ export class EltiempoapiService {
         return this.http.get(url); // Los datos que se devuelven son en formato binario y para obtener la img hay que usar blob para guardarlo en memoria
       })
     )
-  }
-
-  getPrediccionPlaya(){
-    return this.http.get('https://opendata.aemet.es/opendata/api/prediccion/especifica/playa/301101', {
-      params: {
-        'api_key': apikeytiempo
-      },
-    })
   }
 
   // Devuelve el tiempo de hoy por provincia en texto

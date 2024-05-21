@@ -1,3 +1,14 @@
 p {
     margin: 1rem
 }
+
+hr{
+    margin: 1rem 0;
+    background: var(--ion-row-gray);
+    height: 1px,
+}
+
+.nota{
+    color: lightgray;
+    font-size: 14px;
+}
