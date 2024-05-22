@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <label for="usuario">First Name: </label>
+    <input id="usuario" type="text" formControlName="usuario">
+  
+    <label for="contrasena">Last Name: </label>
+    <input id="contrasena" type="password" formControlName="contrasena">
+  
+    <button type="submit">Enviar</button>
+
+  </form>
+
+</ion-content>
