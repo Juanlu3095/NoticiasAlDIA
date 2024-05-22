@@ -16,14 +16,26 @@ export class LoginPage implements OnInit {
   constructor(private firebase: FirebaseService) { }
 
   ngOnInit() {
+    console.log('Este es el usuario: ', this.loginForm.value.usuario)
+    console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
   }
 
   loginForm = new FormGroup({
-    usuario: new FormControl(''),
+    usuario: new FormControl(''), // Damos valor inicial a usuario
     contrasena: new FormControl(''),
   });
 
   login() {
+    console.log(this.loginForm)
+    console.log('Este es el usuario: ', this.loginForm.value.usuario)
+    console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
+
+    let usuario = this.loginForm.value.usuario;
+    let contrasena = this.loginForm.value.contrasena;
+
+    if(!this.loginForm){
+      this.firebase.login(usuario, contrasena);
+    }
     
   }
 }

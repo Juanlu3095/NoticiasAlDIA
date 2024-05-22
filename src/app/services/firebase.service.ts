@@ -21,17 +21,15 @@ export class FirebaseService {
 
   public authorization = getAuth();
 
-  login(form: NgForm) {
+  login(email: any, password: any) {
     
     const auth = getAuth();
-    const email = form.value.nombre;
-    const password = form.value.contrasena;
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log(user);
+      console.log('Este es el usuario Firebase: ', user);
       // ...
     })
     .catch((error) => {

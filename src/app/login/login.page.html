@@ -8,10 +8,10 @@
   
   <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-    <label for="usuario">First Name: </label>
+    <label for="usuario">Usuario: </label>
     <input id="usuario" type="text" formControlName="usuario">
   
-    <label for="contrasena">Last Name: </label>
+    <label for="contrasena">Contraseña: </label>
     <input id="contrasena" type="password" formControlName="contrasena">
   
     <button type="submit">Enviar</button>
