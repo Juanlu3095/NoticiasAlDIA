@@ -1,0 +1,19 @@
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.logo-img{
+    height: 6rem;
+}
+
+.logo-text{
+    text-align: center;
+}
+
+ion-checkbox{
+    font-size: 14px;
+}

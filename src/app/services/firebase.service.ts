@@ -26,7 +26,7 @@ export class FirebaseService {
       // Si las credenciales son correctas: 
       const user = userCredential.user;
       console.log('Este es el usuario Firebase: ', user);
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
       
     })
     .catch((error) => {

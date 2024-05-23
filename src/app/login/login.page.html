@@ -1,24 +1,42 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Inicio de sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="logo-container">
+    <ion-img src="../../assets/dia-y-noche.png" alt="logo-app" class="logo-img ion-margin"></ion-img>
+    <ion-text class="logo-text">¡Tu APP de noticias!</ion-text>
+  </div>
 
-    <label for="usuario">Usuario: </label>
-    <input id="usuario" type="text" formControlName="usuario">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="ion-margin">
+
+    <ion-input id="usuario" type="email" formControlName="usuario" label-placement="floating" fill="outline" label="Usuario" ngDefaultControl></ion-input>
   
-    <label for="contrasena">Contraseña: </label>
-    <input id="contrasena" type="password" formControlName="contrasena">
-  
-    <button type="submit">Enviar</button>
+    <br>
+      
+    <ion-input id="contrasena" type="password" formControlName="contrasena" label-placement="floating" fill="outline" label="Contraseña" ngDefaultControl></ion-input>
+
+    <br>
+
+    <ion-checkbox labelPlacement="end">He leído y acepto las condiciones.</ion-checkbox>
+
+    <br><br>
+
+    <ion-button type="submit" expand="block">Enviar</ion-button>
 
   </form>
 
+  <div>
+    <ion-text class="forgot-text ion-margin ion-text-center">
+      <p>¿Olvidaste tu contraseña?</p>
+      <p>Ver conciones</p>
+    </ion-text>
+  </div>
   <p>Form status: {{ loginForm.status }}</p>
 
-  <button (click)="cerrarsesion()">ADIOS</button>
+  <ion-button (click)="cerrarsesion()">ADIOS</ion-button>
+
 </ion-content>
