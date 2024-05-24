@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router'; 
 
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class FirebaseService {
+
+  logueado: boolean;
 
   constructor(private router: Router) { }
 
@@ -53,14 +55,30 @@ export class FirebaseService {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
-        console.log('Este es el usuario: ', user)
+        console.log('Este es el usuario: ', user);
+        this.logueado = true;
         
       } else {
         // User is signed out
         console.log('El usuario se ha desconectado.')
+        this.logueado = false;
       }
     });
 
+  }
+  
+  // Reseteo de la contraseña por email
+  EmailResetPassword(email: string){
+    sendPasswordResetEmail(this.auth, email)
+  .then(() => {
+    // Password reset email sent!
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
   }
 
 }
