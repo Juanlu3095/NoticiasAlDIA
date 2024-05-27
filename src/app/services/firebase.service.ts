@@ -4,7 +4,8 @@ import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class FirebaseService {
 
   logueado: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private toastController: ToastController) { }
 
   // Iniciamos Firebase
   public app = initializeApp(environment.firebaseConfig); // Obtenemos la configuración de environment
@@ -36,6 +37,7 @@ export class FirebaseService {
       const errorMessage = error.message;
       console.log('Error code: ', errorCode);
       console.log('Mensaje de error: ', errorMessage);
+      this.presentToast("bottom", 'Error: email y/o contraseña no válidos.', 'danger');
     });
   }
 
@@ -46,25 +48,24 @@ export class FirebaseService {
     
   }
 
-  // Es una función que observa el estado del usuario.
-  comprobarUsuario() {
-
-    onAuthStateChanged(this.auth, (user) => {
-
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        console.log('Este es el usuario: ', user);
-        this.logueado = true;
-        
-      } else {
-        // User is signed out
-        console.log('El usuario se ha desconectado.')
-        this.logueado = false;
-      }
+  // Es una función que observa el estado del usuario y obtiene el uid del usuario
+  comprobarUsuario(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      onAuthStateChanged(this.auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          console.log('Este es el usuario desde el servicio: ', user);
+          this.logueado = true;
+          resolve(uid);
+        } else {
+          console.log('El usuario se ha desconectado.');
+          this.logueado = false;
+          resolve(null);
+        }
+      }, (error) => {
+        reject(error);
+      });
     });
-
   }
   
   // Reseteo de la contraseña por email
@@ -81,4 +82,14 @@ export class FirebaseService {
   });
   }
 
+  async presentToast(position: 'top' | 'middle' | 'bottom', message: string, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: position,
+      color: color,
+    });
+
+    await toast.present();
+  }
 }

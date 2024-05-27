@@ -19,22 +19,26 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Este es el usuario: ', this.loginForm.value.usuario)
+    console.log('Este es el usuario: ', this.loginForm.value.email)
     console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
-    this.firebase.comprobarUsuario();
+    this.firebase.comprobarUsuario().then( res => {
+      console.log(res)
+    });
+    
   }
 
   loginForm = new FormGroup({
-    usuario: new FormControl('', Validators.compose([Validators.email, Validators.required])), // Damos valor inicial a usuario
+    email: new FormControl('', Validators.compose([Validators.email, Validators.required])), // Damos valor inicial a usuario
     contrasena: new FormControl('', Validators.required), // Damos valor inicial a contrasena
+    consentimiento: new FormControl(false, Validators.requiredTrue) // Para los checkbox es necesario que estén señalados
   });
 
   login() {
     console.log(this.loginForm)
-    console.log('Este es el usuario: ', this.loginForm.value.usuario)
+    console.log('Este es el usuario: ', this.loginForm.value.email)
     console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
 
-    let usuario = this.loginForm.value.usuario;
+    let usuario = this.loginForm.value.email;
     let contrasena = this.loginForm.value.contrasena;
 
     if(usuario) {
