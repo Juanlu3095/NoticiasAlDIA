@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonCheckbox, IonImg, IonText, MenuController } from '@ionic/angular/standalone';
 import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
+import { Usuario } from '../interfaces/usuario';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,9 @@ import { FirebaseService } from '../services/firebase.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private firebase: FirebaseService) {
+  idUser: string;
+
+  constructor(private firebase: FirebaseService, private firestore: FirestoreService) {
     
   }
 
@@ -22,7 +26,14 @@ export class LoginPage implements OnInit {
     console.log('Este es el usuario: ', this.loginForm.value.email)
     console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
     this.firebase.comprobarUsuario().then( res => {
-      console.log(res)
+      console.log(res);
+      
+      if(res !== null) {
+        this.idUser = res;
+        this.firestore.getUsuario(this.idUser)
+      } else {
+        console.log('No hay usuario')
+      }
     });
     
   }

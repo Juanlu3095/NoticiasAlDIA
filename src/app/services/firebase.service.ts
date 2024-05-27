@@ -22,6 +22,7 @@ export class FirebaseService {
   public db = getFirestore(this.app);
   public auth = getAuth(this.app); // Permite acceder a una firebase concreta
 
+  // Funcion para iniciar sesión
   login(email: any, password: any) {
 
     signInWithEmailAndPassword(this.auth, email, password)
@@ -48,7 +49,7 @@ export class FirebaseService {
     
   }
 
-  // Es una función que observa el estado del usuario y obtiene el uid del usuario
+  // Función que observa el estado del usuario y obtiene el uid del usuario
   comprobarUsuario(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       onAuthStateChanged(this.auth, (user) => {
