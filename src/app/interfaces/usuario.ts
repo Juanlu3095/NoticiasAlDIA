@@ -6,5 +6,5 @@ export interface Usuario {
     ccaa: string,
     localidad: string,
     apieltiempo: string,
-    localidadtiempo: string,
+    municipioeltiempo: number,
 }

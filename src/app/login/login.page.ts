@@ -17,6 +17,7 @@ import { Usuario } from '../interfaces/usuario';
 export class LoginPage implements OnInit {
 
   idUser: string;
+  user: Usuario;
 
   constructor(private firebase: FirebaseService, private firestore: FirestoreService) {
     
@@ -30,7 +31,12 @@ export class LoginPage implements OnInit {
       
       if(res !== null) {
         this.idUser = res;
-        this.firestore.getUsuario(this.idUser)
+        this.firestore.getUsuario(this.idUser).then( respuesta => {
+          if (respuesta) {
+            this.user = respuesta;
+            console.log(this.user)
+          }
+        })
       } else {
         console.log('No hay usuario')
       }

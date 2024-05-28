@@ -19,20 +19,32 @@
 
         <ion-col class="user-data" size="8">
           <ion-text class="user-data-text">
-            <span>Juani</span>
-            <span>juani432&#64;hotmail.com</span>
+            <span>{{ user.nombre }}</span>
+            <span>{{ user.email }}</span>
           </ion-text>
         </ion-col>
       </ion-row>
       
       <ion-list>
+
         <ion-item-group>
           <ion-item-divider>
-            <ion-label> Api Key </ion-label>
+            <ion-label> Api Key Noticias</ion-label>
           </ion-item-divider>
       
           <ion-item>
-            <ion-label>ada45d4adadw45daqde45879</ion-label>
+            <ion-label>{{ user.apinoticias }}</ion-label>
+          </ion-item>
+          
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label> Api Key AEMET</ion-label>
+          </ion-item-divider>
+      
+          <ion-item>
+            <ion-label>{{ user.apieltiempo }}</ion-label>
           </ion-item>
           
         </ion-item-group>
@@ -43,7 +55,7 @@
           </ion-item-divider>
       
           <ion-item>
-            <ion-label>Andalucía</ion-label>
+            <ion-label>{{ user.ccaa }}</ion-label>
           </ion-item>
           
         </ion-item-group>
@@ -54,25 +66,20 @@
           </ion-item-divider>
       
           <ion-item>
-            <ion-label>Málaga</ion-label>
+            <ion-label>{{ user.localidad }}</ion-label>
           </ion-item>
          
         </ion-item-group>
 
         <ion-item-group>
           <ion-item-divider>
-            <ion-label> Localidad </ion-label>
+            <ion-label> Municipio </ion-label>
           </ion-item-divider>
       
-          <ion-item>
-            <ion-label>B1</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>B2</ion-label>
-          </ion-item>
           <ion-item lines="none">
-            <ion-label>B3</ion-label>
+            <ion-label>{{ user.municipioeltiempo }}</ion-label>
           </ion-item>
+         
         </ion-item-group>
 
       </ion-list>

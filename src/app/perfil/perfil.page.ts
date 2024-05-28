@@ -5,6 +5,9 @@ import { IonToast, ToastController, IonContent, IonHeader, IonTitle, IonToolbar,
 import { HeaderComponent } from '../header/header.component';
 import { arrowBackSharp, personCircleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { Usuario } from '../interfaces/usuario';
+import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-perfil',
@@ -15,12 +18,30 @@ import { addIcons } from 'ionicons';
 })
 export class PerfilPage implements OnInit {
 
-  constructor( private toastController: ToastController) {
+  idUser: string;
+  user: Usuario = {} as Usuario; // Iniciamos user como un objeto vacío para que no haya problemas de carga
+
+  constructor( private toastController: ToastController, private firebase: FirebaseService, private firestore: FirestoreService) {
     addIcons({ arrowBackSharp, personCircleOutline });
     
    }
 
   ngOnInit() {
+    this.firebase.comprobarUsuario().then( res => {
+      console.log(res);
+      
+      if(res !== null) {
+        this.idUser = res;
+        this.firestore.getUsuario(this.idUser).then( respuesta => {
+          if (respuesta) {
+            this.user = respuesta;
+            console.log(this.user)
+          }
+        })
+      } else {
+        console.log('No hay usuario')
+      }
+    });
   }
 
   logout(){
