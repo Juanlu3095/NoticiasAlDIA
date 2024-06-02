@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   idUser: string;
   user: Usuario;
 
-  constructor(private firebase: FirebaseService, private firestore: FirestoreService) {
+  constructor(private firebase: FirebaseService, private firestore: FirestoreService, private menucontroller: MenuController) {
     
   }
 
@@ -34,11 +34,13 @@ export class LoginPage implements OnInit {
         this.firestore.getUsuario(this.idUser).then( respuesta => {
           if (respuesta) {
             this.user = respuesta;
-            console.log(this.user)
+            console.log(this.user);
+            this.menucontroller.enable(true, 'main-content');
           }
         })
       } else {
-        console.log('No hay usuario')
+        console.log('No hay usuario');
+        this.menucontroller.enable(false, 'main-content');
       }
     });
     
@@ -63,8 +65,9 @@ export class LoginPage implements OnInit {
       console.log(nombre[0]);
     }
     // Comprueba que se haya enviado el formulario (aunque esté vacío)
-    if(this.loginForm){
+    if(this.loginForm.valid){
       this.firebase.login(usuario, contrasena);
+      
     }
     
   }

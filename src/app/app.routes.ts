@@ -41,9 +41,14 @@ export const routes: Routes = [
   {
     path: 'eltiempo',
     loadComponent: () => import('./eltiempo/eltiempo.page').then( m => m.EltiempoPage)
-  },  {
+  },
+  {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./pagenotfound/pagenotfound.page').then( m => m.PagenotfoundPage)
   },
 
   

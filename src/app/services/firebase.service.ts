@@ -6,6 +6,7 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendP
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class FirebaseService {
 
   logueado: boolean;
 
-  constructor(private router: Router, private toastController: ToastController) { }
+  constructor(private router: Router, private toastController: ToastController, private menucontroller: MenuController) { }
 
   // Iniciamos Firebase
   public app = initializeApp(environment.firebaseConfig); // Obtenemos la configuración de environment
@@ -30,7 +31,8 @@ export class FirebaseService {
       // Si las credenciales son correctas: 
       const user = userCredential.user;
       console.log('Este es el usuario Firebase: ', user);
-      //this.router.navigate(['/']);
+      this.menucontroller.enable(true, 'main-content');
+      this.router.navigate(['/']);
       
     })
     .catch((error) => {
@@ -45,6 +47,7 @@ export class FirebaseService {
   logout(){
     signOut(this.auth).then( () => {
       console.log('Se ha cerrado la sesion');
+      this.menucontroller.enable(false, 'main-content');
     });
     
   }

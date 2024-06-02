@@ -5,6 +5,8 @@ import { IonThumbnail, IonContent, IonHeader, IonTitle, IonToolbar, IonText, Ion
 import { HeaderComponent } from '../header/header.component';
 import { NewsApiService } from '../services/newsapi.service';
 import { RouterLink } from '@angular/router';
+import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-noticias-internacional',
@@ -18,13 +20,20 @@ export class NoticiasInternacionalPage implements OnInit {
   noticias: any;
   lugar: string = 'internacional-españa';
 
-  constructor(private newsapi: NewsApiService) { }
+  constructor(private newsapi: NewsApiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
   ngOnInit() {
-    this.newsapi.getNewsByKeyword(this.lugar).subscribe( noticias => {
-      console.log(noticias);
-      this.noticias = noticias;
-    })
+    this.firebase.comprobarUsuario().then( (uidUsuario => {
+      if(uidUsuario) {
+        this.firestore.getUsuario(uidUsuario).then( usuario => {
+          if(usuario) {
+            this.newsapi.getNewsByKeywordConApi(this.lugar, usuario.apinoticias).subscribe( noticias => {
+              this.noticias = noticias;
+            })
+          }
+        })
+      }
+    }))
   }
 
 }

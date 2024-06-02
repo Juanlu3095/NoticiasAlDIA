@@ -24,7 +24,7 @@
           </ion-text>
         </ion-col>
       </ion-row>
-      
+
       <ion-list>
 
         <ion-item-group>
@@ -73,7 +73,7 @@
 
         <ion-item-group>
           <ion-item-divider>
-            <ion-label> Municipio </ion-label>
+            <ion-label> Municipio <a id="present-alert">(Ver códigos)</a> </ion-label>
           </ion-item-divider>
       
           <ion-item lines="none">
@@ -84,11 +84,73 @@
 
       </ion-list>
 
-      <ion-button color="primary" class="guardar" (click)="guardarcambios()">Guardar cambios</ion-button>
-      <br> 
+      <!-- BOTÓN PARA ABRIR EL MODAL -->
+      <ion-button color="primary" class="guardar" id="open-modal">Modificar ajustes</ion-button>
+      
       <ion-button color="danger" class="logout" fill="outline" (click)="logout()">Cerrar sesión</ion-button>
 
+      <ion-alert
+        trigger="present-alert"
+        header="Se va abrir la página del SEPE para ver los municipios. ¿Quiere acceder?"
+        [buttons]="alertButtons"
+      ></ion-alert>
 
     </ion-grid>
+
+    <!-- Modal para modificar los ajustes del perfil -->
+    <ion-modal trigger="open-modal">
+      
+      <ng-template>
+        
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancelar()">Cancelar</ion-button>
+            </ion-buttons>
+            
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+
+          <p class="ion-text-center">Modifica los ajustes de tu perfil:</p>
+
+          <form [formGroup]="ajustesForm" (ngSubmit)="confirmar()" class="ion-margin">
+          <ion-item>
+            <ion-input label="Tu Api Key de noticias" labelPlacement="floating" type="text" formControlName="newapinoticias" ngDefaultControl></ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-item>
+            <ion-input label="Tu Api Key de AEMET" labelPlacement="floating" type="text" formControlName="newapiaemet" ngDefaultControl></ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-item>
+            <ion-input label="Tu Comunidad Autónoma" labelPlacement="floating" type="text" formControlName="newccaa" ngDefaultControl></ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-item>
+            <ion-input label="Tu Localidad" labelPlacement="floating" type="text" formControlName="newlocalidad" ngDefaultControl></ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-item>
+            <ion-input label="Tu Municipio" labelPlacement="floating" type="number" formControlName="newmunicipio" ngDefaultControl></ion-input>
+          </ion-item>
+
+          <br>
+
+          <ion-button type="submit" [strong]="true">Confirmar</ion-button>
+        </form>
+        </ion-content>
+      
+      </ng-template>
+    
+    </ion-modal>
     
 </ion-content>

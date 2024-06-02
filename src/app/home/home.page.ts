@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonRow, IonGrid } from '@ionic/angular/standalone';
-import { NewsApiService } from '../services/newsapi.service';
-import { Platform } from '@ionic/angular';
 import { HeaderComponent } from '../header/header.component';
+import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-home',
@@ -17,30 +17,19 @@ import { HeaderComponent } from '../header/header.component';
 
 export class HomePage implements OnInit {
 
-  imagenUrl: string;
-  isAndroid: boolean;
-  constructor(private newsapiservice: NewsApiService, private platform: Platform) { }
+  nombreUsuario: string;
+  constructor(private firebase: FirebaseService, private firestore: FirestoreService) { }
 
-  ngOnInit() {
-    
-    //this.isAndroid = this.platform.is('android');
-    /* this.newsapiservice.getNews().subscribe( respuesta => {
-      console.log(respuesta);
-    }) */
-
-    /* this.newsapiservice.getTiempo().subscribe ( res => {
-      console.log(res)
+  ngOnInit() { // Obtenemos el nombre de usuario desde firestore usando la uid de firebase
+    this.firebase.comprobarUsuario().then( respuesta => {
+      if(respuesta) {
+        this.firestore.getUsuario(respuesta).then( res => {
+          if(res) {
+            this.nombreUsuario = res.nombre;
+          }
+        })
+      }
     })
-
-    this.newsapiservice.getTiempoProvincia().subscribe( resp => {
-      console.log(resp)
-    }) */
-
-    // Obtener observable con el blob de la imagen
-    /* this.newsapiservice.getinfoplaya().subscribe( respuestaPlaya => {
-      this.imagenUrl = URL.createObjectURL(respuestaPlaya);
-      console.log(this.imagenUrl)
-    }) */
   }
 
 }

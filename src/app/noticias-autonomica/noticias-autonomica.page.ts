@@ -5,6 +5,8 @@ import { IonThumbnail, IonContent, IonHeader, IonTitle, IonToolbar, IonText, Ion
 import { HeaderComponent } from '../header/header.component';
 import { NewsApiService } from '../services/newsapi.service';
 import { RouterLink } from '@angular/router';
+import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-noticias-autonomica',
@@ -16,14 +18,22 @@ import { RouterLink } from '@angular/router';
 export class NoticiasAutonomicaPage implements OnInit {
 
   noticias: any;
-  lugar: string = 'andalucia';
+  lugar: string;
 
-  constructor(private newsapi: NewsApiService) { }
+  constructor(private newsapi: NewsApiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
   ngOnInit() {
-    this.newsapi.getNewsByPlace(this.lugar).subscribe( noticias => {
-      console.log(noticias);
-      this.noticias = noticias;
+    this.firebase.comprobarUsuario().then( uidUsuario => {
+      if(uidUsuario) {
+        this.firestore.getUsuario(uidUsuario).then ( usuario => {
+          if(usuario) {
+            this.lugar = usuario.ccaa;
+            this.newsapi.getNewsByPlaceConApi(usuario.ccaa, usuario.apinoticias).subscribe( noticias => {
+              this.noticias = noticias;
+            })
+          }
+        })
+      }
     })
   }
 
