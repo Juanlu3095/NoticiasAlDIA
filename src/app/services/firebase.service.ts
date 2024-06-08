@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword  } from "firebase/auth";
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -23,7 +23,7 @@ export class FirebaseService {
   public db = getFirestore(this.app);
   public auth = getAuth(this.app); // Permite acceder a una firebase concreta
 
-  // Funcion para iniciar sesión
+  // Función para iniciar sesión
   login(email: any, password: any) {
 
     signInWithEmailAndPassword(this.auth, email, password)
@@ -84,6 +84,25 @@ export class FirebaseService {
     const errorMessage = error.message;
     // ..
   });
+  }
+
+  // Función para registrar usuarios. Una vez registrado, el login se hace automáticamente
+  async registro(email: string, password:string): Promise<string | null> {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+        if(userCredential){
+          const uid = userCredential.user.uid;
+          return uid;
+        } else {
+          return null;
+        }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      return errorMessage;
+    });
   }
 
   async presentToast(position: 'top' | 'middle' | 'bottom', message: string, color: string) {

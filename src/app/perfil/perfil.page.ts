@@ -58,6 +58,7 @@ export class PerfilPage implements OnInit {
 
   logout(){
     console.log('adios');
+    this.firebase.logout();
   }
 
   // Alerta para redirigir al SEPE donde poder ver los códigos de municipios
@@ -98,7 +99,7 @@ export class PerfilPage implements OnInit {
 
   async confirmar() {
 
-    let newapinoticias = this.ajustesForm.value.newapinoticias ?? ''; // Estos valores pueden estar vacíos si no se rellena el campo
+    let newapinoticias = this.ajustesForm.value.newapinoticias ?? ''; // Estos valores pueden estar vacíos si no se rellena el campo, por lo que si son null on undefined, devuelve ''
     let newapiaemet = this.ajustesForm.value.newapiaemet ?? '';
     let newccaa = this.ajustesForm.value.newccaa ?? '';
     let newlocalidad = this.ajustesForm.value.newlocalidad ?? '';

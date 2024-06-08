@@ -47,6 +47,14 @@ export const routes: Routes = [
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
   {
+    path: 'registro',
+    loadComponent: () => import('./registro/registro.page').then( m => m.RegistroPage)
+  },
+  {
+    path: 'cambiarcontrasena',
+    loadComponent: () => import('./cambiarcontrasena/cambiarcontrasena.page').then( m => m.CambiarcontrasenaPage)
+  },
+  {
     path: '**',
     loadComponent: () => import('./pagenotfound/pagenotfound.page').then( m => m.PagenotfoundPage)
   },

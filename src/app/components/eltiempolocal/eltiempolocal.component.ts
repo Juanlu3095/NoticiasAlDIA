@@ -1,7 +1,9 @@
-import { Component, OnInit, LOCALE_ID, input, Input, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { IonCard, IonGrid, IonCardHeader, IonRow, IonCol, IonCardTitle, IonCardSubtitle, IonImg, IonCardContent, IonButton, IonRange, IonText } from '@ionic/angular/standalone';
 import { EltiempoapiService } from 'src/app/services/eltiempoapi.service';
+import { FirebaseService } from '../../services/firebase.service';
+import { FirestoreService } from '../../services/firestore.service';
 import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeEs, 'es');
@@ -23,15 +25,21 @@ export class EltiempolocalComponent  implements OnInit {
   // A partir del tercer día, no se muestran las 7 franjas horarias, sino sólo las 3 primeras por ejemplo.
   selectedSegment: string = '0';
 
-  constructor(private eltiempoapiservice: EltiempoapiService) { }
+  constructor(private eltiempoapiservice: EltiempoapiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
   ngOnInit() {
-  
-    this.eltiempoapiservice.getPrediccionMunicipio().subscribe( (respuesta: any) => {
-      this.datosAemet = respuesta[0].prediccion.dia;
-      this.municipio = respuesta[0].nombre;
+    this.firebase.comprobarUsuario().then( uidUsuario => {
+      if(uidUsuario) {
+        this.firestore.getUsuario(uidUsuario).then( usuario => {
+          if(usuario) {
+            this.eltiempoapiservice.getPrediccionMunicipioconapi(usuario.apieltiempo, usuario.municipioeltiempo).subscribe( (respuesta: any) => {
+              this.datosAemet = respuesta[0].prediccion.dia;
+              this.municipio = respuesta[0].nombre;
+            })
+          }
+        })
+      }
     })
-  
 
   }
   

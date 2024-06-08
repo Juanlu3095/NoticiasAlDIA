@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   
   <div class="logo-container">
-    <ion-img src="../../assets/dia-y-noche.png" alt="logo-app" class="logo-img ion-margin"></ion-img>
+    <ion-img src="../../assets/NoticiasAldiaIcon.png" alt="logo-app" class="logoapp"></ion-img>
     <ion-text class="logo-text">¡Tu APP de noticias!</ion-text>
   </div>
 
@@ -31,7 +31,8 @@
 
   <div>
     <ion-text class="forgot-text ion-margin ion-text-center">
-      <p><a>¿Olvidaste tu contraseña?</a></p>
+      <p><a [routerLink]="['/cambiarcontrasena']">¿Olvidaste tu contraseña?</a></p>
+      <p>¿No tienes cuenta?<a [routerLink]="['/registro']"> Regístrate</a>.</p>
       <p><a [routerLink]="['/condiciones']">Ver condiciones</a></p>
     </ion-text>
   </div>

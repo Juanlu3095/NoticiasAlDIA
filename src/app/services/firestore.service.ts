@@ -36,6 +36,21 @@ export class FirestoreService {
     
   }
 
+  // Creación de un nuevo usuario al validar los datos del registro
+  async newUsuario(uid:string, nombre:string, email:string, ccaa:string, localidad:string, municipioeltiempo:number, apinoticias:string, apieltiempo:string){
+    const queryNewUser = doc(this.db, "Usuarios", uid);
+
+    await setDoc(queryNewUser, {
+      nombre: nombre,
+      email: email,
+      ccaa: ccaa,
+      localidad: localidad,
+      municipioeltiempo: municipioeltiempo,
+      apinoticias: apinoticias,
+      apieltiempo: apieltiempo
+    })
+  }
+
   // Añadir o modificar usuario para luego actualizar en el HTML
   async setUsuario(uid:string, newapinoticias:string, newccaa:string, newlocalidad:string, newapieltiempo:string, newmunicipioeltiempo:number) {
     const querySet = doc(this.db, "Usuarios", uid);

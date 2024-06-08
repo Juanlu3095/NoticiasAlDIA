@@ -5,18 +5,6 @@ import { map } from 'rxjs';
 
 const apikey = environment.apikeynews;
 
-export interface Noticia{
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  image: string;
-  active: boolean;
-}
-
-type ApiResponse = { page: number, per_page: number, total:number, total_pages: number, results: Noticia[] }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -59,7 +47,7 @@ export class NewsApiService {
     )
   } 
 
-  // Obtenemos noticias por el lugar donde ocurre
+  // Obtenemos noticias por el lugar donde ocurre utilizando la apikey de la base de datos
   getNewsByPlaceConApi(entity: string, apikeynoticias: string) {
     return this.http.get(this.endpoint, {
       params: {
@@ -98,7 +86,7 @@ export class NewsApiService {
     )
   }
   
-  // Obtenemos noticias por palabra clave
+  // Obtenemos noticias por palabra clave utilizando la apikey de la base de datos
   getNewsByKeywordConApi(keyword: string, apikeynoticias: string) {
     return this.http.get(this.endpoint, {
       params: {

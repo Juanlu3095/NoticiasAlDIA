@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Formulario de registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="logo-container">
+    <ion-img src="../../assets/NoticiasAldiaIcon.png" alt="logo-app" class="logoapp"></ion-img>
+    <ion-text class="logo-text">¡Tu APP de noticias!</ion-text>
+  </div>
+
+  <div class="instrucciones">
+    <ion-text>
+      Rellene el siguiente formulario de registro:
+    </ion-text>
+  </div>
+
+  <!-- Formulario de registro -->
+  <form [formGroup]="registroForm" (ngSubmit)="login()" class="ion-margin">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-input id="nombre" type="text" formControlName="nombre" label-placement="floating" fill="outline" label="Nombre de usuario" ngDefaultControl></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-input id="email" type="email" formControlName="email" label-placement="floating" fill="outline" label="Correo electrónico" ngDefaultControl></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-input id="contrasena" type="password" formControlName="contrasena" label-placement="floating" fill="outline" label="Contraseña" ngDefaultControl></ion-input>
+        </ion-col>
+      </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input id="ccaa" type="text" formControlName="ccaa" label-placement="floating" fill="outline" label="Comunidad Autónoma" ngDefaultControl></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input id="localidad" type="text" formControlName="localidad" label-placement="floating" fill="outline" label="Localidad" ngDefaultControl></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input id="municipio" type="number" formControlName="municipio" label-placement="floating" fill="outline" label="Municipio" ngDefaultControl></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input id="apinoticias" type="text" formControlName="apinoticias" label-placement="floating" fill="outline" label="API World News" ngDefaultControl></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input id="apieltiempo" type="text" formControlName="apieltiempo" label-placement="floating" fill="outline" label="API AEMET" ngDefaultControl></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <br>
+
+    <ion-row>
+      <ion-col>
+        <ion-checkbox labelPlacement="end" formControlName="consentimiento">He leído y acepto las condiciones.</ion-checkbox>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-text>Pinche <a id="present-alert">aquí</a> para ver los códigos de municipio.</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <br>
+
+    <ion-button type="submit" expand="block" [disabled]="!registroForm.valid">Enviar</ion-button>
+
+    </ion-grid>
+  </form> 
+
+  <ion-alert
+        trigger="present-alert"
+        header="Se va abrir la página del SEPE para ver los municipios. ¿Quiere acceder?"
+        [buttons]="alertButtons"
+      ></ion-alert>
+</ion-content>
