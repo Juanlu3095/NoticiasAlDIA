@@ -12,8 +12,8 @@ export class FirestoreService {
 
   private db = this.firebase.db;
 
-  // Obtenemos el usuario pasando como parámetro la uid
-  async getUsuario(uid:string) {
+  // Obtenemos el usuario pasando como parámetro la uid. Devuelve una promesa con un objecto tipo Usuario que puede estar vacío (null) si la uid no es correcta
+  async getUsuario(uid:string): Promise<Usuario | null> {
     const queryUser = doc(this.db, "Usuarios", uid);
 
     const resultado = (await (getDoc(queryUser))).data();

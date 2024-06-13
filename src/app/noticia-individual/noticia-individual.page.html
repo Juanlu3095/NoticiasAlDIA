@@ -35,6 +35,10 @@
     </ion-card>
   </ion-grid>
 
+  } @else if (errorMessage) {
+    <ion-text class="ion-text-center">
+      <h1 class="page-title">{{ errorMessage }}</h1>
+    </ion-text>
   }
 
 </ion-content>

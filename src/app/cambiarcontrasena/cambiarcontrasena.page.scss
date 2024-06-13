@@ -1,0 +1,25 @@
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.logoapp{
+    width: 35%;
+    height: 35%;
+    text-align: center;
+    border: 2px solid #1567B7;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.logo-text{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.instrucciones{
+    text-align: center;
+}

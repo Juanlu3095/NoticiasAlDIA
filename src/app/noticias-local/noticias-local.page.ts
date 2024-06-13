@@ -19,6 +19,7 @@ export class NoticiasLocalPage implements OnInit {
 
   noticias: any;
   lugar: string;
+  errorMessage: string;
 
   constructor(private newsapi: NewsApiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
@@ -28,8 +29,13 @@ export class NoticiasLocalPage implements OnInit {
         this.firestore.getUsuario(uidUsuario).then ( usuario => {
           if(usuario) {
             this.lugar = usuario.localidad;
-            this.newsapi.getNewsByPlaceConApi(usuario.localidad, usuario.apinoticias).subscribe( noticias => {
-              this.noticias = noticias;
+            this.newsapi.getNewsByPlaceConApi(usuario.localidad, usuario.apinoticias).subscribe({
+              next: (respuesta) => {
+                this.noticias = respuesta;
+              },
+              error: (error) => {
+                console.log('Éste es el error: ', error)
+              }
             })
           }
         })

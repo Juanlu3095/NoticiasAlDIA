@@ -1,13 +1,42 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>cambiarcontrasena</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Reestablecer contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cambiarcontrasena</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="logo-container">
+    <ion-img src="../../assets/NoticiasAldiaIcon.png" alt="logo-app" class="logoapp"></ion-img>
+    <ion-text class="logo-text">¡Tu APP de noticias!</ion-text>
+  </div>
+
+  <div class="instrucciones ion-margin-start ion-margin-end">
+    <ion-text>
+      Indique a continuación el correo electrónico de su cuenta y le enviaremos un email para restablecer su contraseña:
+    </ion-text>
+  </div>
+
+  <form [formGroup]="cambiarcontrasenaForm" (ngSubmit)="cambiarcontrasena()" class="ion-margin">
+
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-input id="email" type="email" formControlName="email" label-placement="floating" fill="outline" label="Correo electrónico" ngDefaultControl></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <br>
+
+      <ion-button type="submit" expand="block" [disabled]="!cambiarcontrasenaForm.valid">Enviar</ion-button>
+
+    </ion-grid>
+
+  </form>
 </ion-content>

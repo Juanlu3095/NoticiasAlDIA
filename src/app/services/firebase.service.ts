@@ -38,12 +38,18 @@ export class FirebaseService {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log('Error code: ', errorCode);
-      console.log('Mensaje de error: ', errorMessage);
-      this.presentToast("bottom", 'Error: email y/o contraseña no válidos.', 'danger');
+      if( errorCode == 'auth/invalid-credential') {
+        this.presentToast("bottom", 'Error: email y/o contraseña no válidos.', 'danger');
+      } else if( errorCode == 'auth/network-request-failed') {
+        this.presentToast("bottom", 'Error: compruebe su conexión a internet.', 'danger');
+      } else {
+        this.presentToast("bottom", 'Ha ocurrido un error. Por favor, contacte con soporte.', 'danger');
+      }
+      
     });
   }
 
+  // Función para cerrar sesión
   logout(){
     signOut(this.auth).then( () => {
       console.log('Se ha cerrado la sesion');
@@ -73,16 +79,23 @@ export class FirebaseService {
   }
   
   // Reseteo de la contraseña por email
-  EmailResetPassword(email: string){
+  cambiarcontrasena(email: string){
     sendPasswordResetEmail(this.auth, email)
   .then(() => {
     // Password reset email sent!
-    // ..
+    this.presentToast("bottom", 'Por favor, revise su email.', 'primary');
+    this.router.navigate(['/login']);
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    // ..
+    if( errorCode == 'auth/invalid-email') {
+      this.presentToast("bottom", 'Error: email no válido.', 'danger');
+    } else if( errorCode == 'auth/network-request-failed') {
+      this.presentToast("bottom", 'Error: compruebe su conexión a internet.', 'danger');
+    } else {
+      this.presentToast("bottom", 'Ha ocurrido un error. Por favor, contacte con soporte.', 'danger');
+    }
   });
   }
 
@@ -99,9 +112,15 @@ export class FirebaseService {
         }
     })
     .catch((error) => {
-      const errorCode = error.code;
+      const errorCode = error.code; 
       const errorMessage = error.message;
-      return errorMessage;
+
+      if( errorCode == 'auth/network-request-failed') {
+        this.presentToast("bottom", 'Error: compruebe su conexión a internet.', 'danger');
+      } else {
+        this.presentToast("bottom", 'Ha ocurrido un error. Por favor, contacte con soporte.', 'danger');
+      }
+      return errorCode;
     });
   }
 

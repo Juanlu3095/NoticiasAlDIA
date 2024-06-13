@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs';
+import { map, catchError, Observable, throwError } from 'rxjs';
 
 const apikey = environment.apikeynews;
 
@@ -16,7 +16,7 @@ export class NewsApiService {
   constructor(private http: HttpClient) { }
 
   // Obtenemos la noticia concreta por medio de la url (La API no permite usar la id para pasarla por parámetro)
-  getIndividualNew(url:string) {
+  getIndividualNew(url:string): Observable<any> {
 
     return this.http.get(this.endpointIndividualNew, {
       params: {
@@ -24,7 +24,22 @@ export class NewsApiService {
         'url': url,
         'analyze': false // Extrae entidades si es true
       }
-    })
+    }).pipe(catchError( (error: HttpErrorResponse) => {
+      let errorMessage = '';
+
+      if(error.error instanceof ErrorEvent) {
+        errorMessage = `Error: ${error.error.message}`; // ERROR DEL CLIENTE
+      } else { // ERRORES DEL SERVIDOR
+        if( error.status === 402) {
+          errorMessage = `Su petición no se puede procesar porque ha excedido el límite de uso diario para su cuenta.`; 
+        } else { // error.status === 0 -> Es un error genérico
+          errorMessage = `Por favor compruebe su conexión a internet. En caso de no ser éste el error, por favor contacte con soporte.`; 
+        }
+         
+      }
+
+      return throwError( () => errorMessage);
+    }))
   }
 
   // Obtenemos noticias por el lugar donde ocurre
@@ -43,6 +58,22 @@ export class NewsApiService {
     }).pipe(
       map((res:any) => { /* Mapear nos permite acceder directamente al data dentro del json para no tener que poner siempre data.loquesea */
         return res.news;
+      }), // Podemos poner un tipo detrás del otro con una coma
+      catchError( (error: HttpErrorResponse) => {
+        let errorMessage = '';
+  
+        if(error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`; // ERROR DEL CLIENTE
+        } else { // ERRORES DEL SERVIDOR
+          if( error.status === 402) {
+            errorMessage = `Su petición no se puede procesar porque ha excedido el límite de uso diario para su cuenta.`; 
+          } else {
+            errorMessage = `Error code: ${error.status}, message: ${error.message}`; 
+          }
+           
+        }
+  
+        return throwError( () => errorMessage);
       })
     )
   } 
@@ -63,6 +94,22 @@ export class NewsApiService {
     }).pipe(
       map((res:any) => { /* Mapear nos permite acceder directamente al data dentro del json para no tener que poner siempre data.loquesea */
         return res.news;
+      }),
+      catchError( (error: HttpErrorResponse) => {
+        let errorMessage = '';
+  
+        if(error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`; // ERROR DEL CLIENTE
+        } else { // ERRORES DEL SERVIDOR
+          if( error.status === 402) {
+            errorMessage = `Su petición no se puede procesar porque ha excedido el límite de uso diario para su cuenta.`; 
+          } else {
+            errorMessage = `Error code: ${error.status}, message: ${error.message}`; 
+          }
+           
+        }
+  
+        return throwError( () => errorMessage);
       })
     )
   }
