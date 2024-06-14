@@ -44,12 +44,12 @@ export class NoticiaIndividualPage implements OnInit{
       this.Newsapi.getIndividualNew(this.url).subscribe({
         next: (respuesta) => {
 
-            console.log(respuesta);
-            this.noticia = respuesta;
-            this.contenido = this.noticia.text.replace(/(\.[^\.]*\.)/g, '$1<br><br>');
+          console.log(respuesta);
+          this.noticia = respuesta;
+          this.contenido = this.noticia.text.replace(/(\.[^\.]*\.)/g, '$1<br><br>');
 
-            // Convertir fecha al formato español: DD-MM-AAAA - HH-MM
-            this.fecha = this.noticia.publish_date;
+          // Convertir fecha al formato español: DD-MM-AAAA - HH-MM
+          this.fecha = this.noticia.publish_date;
         },
         error: (error) => {
           console.log('Éste es el error: ' + error);

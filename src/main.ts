@@ -6,7 +6,8 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorAemetHandlerInterceptor, errorhandlerInterceptor } from './app/services/errorhandler.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -17,6 +18,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes),
-    provideHttpClient(), // Necesitamos esto para poder acceder a las llamadas HTTP
+    provideHttpClient(withInterceptors([errorhandlerInterceptor])), // Necesitamos esto para poder acceder a las llamadas HTTP. Le pasamos los interceptores en el array en el orden que necesitamos
   ],
 });

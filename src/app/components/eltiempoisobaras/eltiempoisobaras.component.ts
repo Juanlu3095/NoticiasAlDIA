@@ -22,8 +22,14 @@ export class EltiempoisobarasComponent  implements OnInit {
       if(uidUsuario) {
         this.firestore.getUsuario(uidUsuario).then( usuario => {
           if(usuario) {
-            this.eltiemposervice.getisobarasconapi(usuario.apieltiempo).subscribe( response => {
-              this.mapa = URL.createObjectURL(response); // Obtenemos la url guardada con el blob
+            console.log('Este es el usuario: ', usuario);
+            this.eltiemposervice.getisobarasconapi(usuario.apieltiempo).subscribe({
+              next: (response) => {
+                this.mapa = URL.createObjectURL(response);
+              },
+              error: (error) => {
+                console.log('Éste es el error: ', error)
+              }
             })
           }
         })
