@@ -1,10 +1,12 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonThumbnail, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonCard, IonGrid, IonText, IonImg, IonButtons, IonBackButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonItem, IonLabel, IonCard, IonGrid, IonText, IonImg, IonButtons, IonBackButton, IonSpinner } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { NewsApiService } from '../services/newsapi.service';
 import { HeaderComponent } from '../header/header.component';
+import { FirebaseService } from '../services/firebase.service';
+import { FirestoreService } from '../services/firestore.service';
 import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeEs, 'es');
@@ -15,7 +17,7 @@ registerLocaleData(localeEs, 'es');
   styleUrls: ['./noticia-individual.page.scss'],
   standalone: true,
   providers: [{provide: LOCALE_ID, useValue: 'es'}],
-  imports: [IonBackButton, IonButtons, IonImg, IonThumbnail, IonText, IonGrid, IonCard, IonLabel, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonSpinner, IonBackButton, IonButtons, IonImg, IonText, IonGrid, IonCard, IonLabel, IonItem, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, HeaderComponent]
 })
 export class NoticiaIndividualPage implements OnInit{
 
@@ -25,37 +27,32 @@ export class NoticiaIndividualPage implements OnInit{
   fecha:Date;
   errorMessage: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private Newsapi: NewsApiService) { }
+  constructor(private activatedRoute: ActivatedRoute, private Newsapi: NewsApiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
   ngOnInit() {
     this.url = this.activatedRoute.snapshot.paramMap.get('url'); // La API pide la url de la noticia para extraerla
 
-    /* this.Newsapi.getIndividualNew(this.url).subscribe( (respuesta) => {
+    this.firebase.comprobarUsuario().then( uidUsuario => {
+      if(uidUsuario) {
+        this.firestore.getUsuario(uidUsuario).then( usuario => {
+          if(usuario) {
+            this.Newsapi.getIndividualNewConApi(this.url, usuario.apinoticias).subscribe({
+              next: (respuesta) => {
+                this.noticia = respuesta;
+                this.contenido = this.noticia.text.replace(/(\.[^\.]*\.)/g, '$1<br><br>');
       
-      console.log(respuesta);
-      this.noticia = respuesta;
-
-      this.contenido = this.noticia.text.replace(/(\.[^\.]*\.)/g, '$1<br><br>');
-
-      // Convertir fecha al formato español: DD-MM-AAAA - HH-MM
-      this.fecha = this.noticia.publish_date;
-    }) */
-
-      this.Newsapi.getIndividualNew(this.url).subscribe({
-        next: (respuesta) => {
-
-          console.log(respuesta);
-          this.noticia = respuesta;
-          this.contenido = this.noticia.text.replace(/(\.[^\.]*\.)/g, '$1<br><br>');
-
-          // Convertir fecha al formato español: DD-MM-AAAA - HH-MM
-          this.fecha = this.noticia.publish_date;
-        },
-        error: (error) => {
-          console.log('Éste es el error: ' + error);
-          this.errorMessage = error;
-        }
-      })
+                // Convertir fecha al formato español: DD-MM-AAAA - HH-MM
+                this.fecha = this.noticia.publish_date;
+              },
+              error: (error) => {
+                this.errorMessage = error;
+              }
+            })
+          }
+        })
+      }
+    })
+      
 
   }
 

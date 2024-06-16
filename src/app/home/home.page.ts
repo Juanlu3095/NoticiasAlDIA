@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonRow, IonGrid } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
 import { FirebaseService } from '../services/firebase.service';
 import { FirestoreService } from '../services/firestore.service';
@@ -11,7 +11,7 @@ import { FirestoreService } from '../services/firestore.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonGrid, IonRow, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonText, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent],
+  imports: [IonGrid, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonText, IonContent, IonHeader, CommonModule, FormsModule, HeaderComponent],
   
 })
 

@@ -8,22 +8,38 @@
       <h1 class="page-title">Noticias Internacionales</h1>
     </ion-text>
 
-  <ion-grid>
+  <!-- Mostrar noticias si las hay -->  
+  @if(noticias) {
+    <ion-grid>
 
-    <ion-card>
-      @for (noticia of noticias; track noticia.id) {
-      <ion-item lines="none" [routerLink]="['/noticia-individual', noticia.url]">
-        <ion-thumbnail slot="start">
-          <img src="{{ noticia.image }}" alt="imagen">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{ noticia.title }}</h2>
-          <p>{{ noticia.author }}</p>
-        </ion-label>
-      </ion-item>
-      }
-    </ion-card>
+      <ion-card>
+        @for (noticia of noticias; track noticia.id) {
+        <ion-item lines="none" [routerLink]="['/noticia-individual', noticia.url]">
+          <ion-thumbnail slot="start">
+            <img src="{{ noticia.image }}" alt="imagen">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ noticia.title }}</h2>
+            <p>{{ noticia.author }}</p>
+          </ion-label>
+        </ion-item>
+        }
+      </ion-card>
+  
+    </ion-grid>
 
-  </ion-grid>
+  <!-- Mensaje de error -->
+  } @else if (errorMessage) {
+    <div class="ion-margin">
+      <ion-text>{{errorMessage}}</ion-text>
+    </div>
 
+  <!-- Spinner + Mensaje cargando -->
+  } @else {
+    <ion-item class="ion-margin ion-estado">
+      <ion-spinner color="primary" class="ion-margin-end"></ion-spinner>
+      <ion-text>Cargando...</ion-text>
+    </ion-item>
+  }
+  
 </ion-content>

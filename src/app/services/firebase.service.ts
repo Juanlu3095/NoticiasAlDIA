@@ -30,7 +30,6 @@ export class FirebaseService {
     .then((userCredential) => {
       // Si las credenciales son correctas: 
       const user = userCredential.user;
-      console.log('Este es el usuario Firebase: ', user);
       this.menucontroller.enable(true, 'main-content');
       this.router.navigate(['/']);
       
@@ -52,8 +51,8 @@ export class FirebaseService {
   // Función para cerrar sesión
   logout(){
     signOut(this.auth).then( () => {
-      console.log('Se ha cerrado la sesion');
       this.menucontroller.enable(false, 'main-content');
+      this.router.navigate(['/login']);
     });
     
   }
@@ -64,11 +63,9 @@ export class FirebaseService {
       onAuthStateChanged(this.auth, (user) => {
         if (user) {
           const uid = user.uid;
-          console.log('Este es el usuario desde el servicio: ', user);
           this.logueado = true;
           resolve(uid);
         } else {
-          console.log('El usuario se ha desconectado.');
           this.logueado = false;
           resolve(null);
         }

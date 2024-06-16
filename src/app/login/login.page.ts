@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonCheckbox, IonImg, IonText, MenuController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCheckbox, IonImg, IonText } from '@ionic/angular/standalone';
 import { FirebaseService } from '../services/firebase.service';
-import { FirestoreService } from '../services/firestore.service';
 import { Usuario } from '../interfaces/usuario';
 
 @Component({
@@ -12,37 +11,16 @@ import { Usuario } from '../interfaces/usuario';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonText, IonImg, IonCheckbox, IonLabel, IonButton, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, ReactiveFormsModule, RouterLink]
+  imports: [IonText, IonImg, IonCheckbox, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class LoginPage implements OnInit {
 
   idUser: string;
   user: Usuario;
 
-  constructor(private firebase: FirebaseService, private firestore: FirestoreService, private menucontroller: MenuController) {
-    
-  }
+  constructor(private firebase: FirebaseService) {}
 
   ngOnInit() {
-    console.log('Este es el usuario: ', this.loginForm.value.email)
-    console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
-    this.firebase.comprobarUsuario().then( res => {
-      console.log(res);
-      
-      if(res !== null) {
-        this.idUser = res;
-        this.firestore.getUsuario(this.idUser).then( respuesta => {
-          if (respuesta) {
-            this.user = respuesta;
-            console.log(this.user);
-            this.menucontroller.enable(true, 'main-content');
-          }
-        })
-      } else {
-        console.log('No hay usuario');
-        this.menucontroller.enable(false, 'main-content');
-      }
-    });
     
   }
 
@@ -53,17 +31,14 @@ export class LoginPage implements OnInit {
   });
 
   login() {
-    console.log(this.loginForm)
-    console.log('Este es el usuario: ', this.loginForm.value.email)
-    console.log('Ésta es la contraseña: ', this.loginForm.value.contrasena)
-
     let usuario = this.loginForm.value.email;
     let contrasena = this.loginForm.value.contrasena;
 
-    if(usuario) {
+    /* if(usuario) {
       let nombre = usuario.split('@'); // Obtenemos el nombre de usuario a partir del email
       console.log(nombre[0]);
-    }
+    } */
+
     // Comprueba que se haya enviado el formulario (aunque esté vacío)
     if(this.loginForm.valid){
       this.firebase.login(usuario, contrasena);
@@ -72,7 +47,4 @@ export class LoginPage implements OnInit {
     
   }
 
-  cerrarsesion() {
-    this.firebase.logout();
-  }
 }

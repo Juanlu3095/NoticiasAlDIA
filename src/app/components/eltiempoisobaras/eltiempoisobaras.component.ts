@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonImg } from '@ionic/angular/standalone';
+import { IonImg, IonText, IonItem, IonSpinner } from '@ionic/angular/standalone';
 import { EltiempoapiService } from 'src/app/services/eltiempoapi.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { FirestoreService } from '../../services/firestore.service';
@@ -9,11 +9,12 @@ import { FirestoreService } from '../../services/firestore.service';
   templateUrl: './eltiempoisobaras.component.html',
   styleUrls: ['./eltiempoisobaras.component.scss'],
   standalone: true,
-  imports: [IonImg, ],
+  imports: [IonSpinner, IonItem, IonText, IonImg, ],
 })
 export class EltiempoisobarasComponent  implements OnInit {
 
   mapa: any;
+  errorMessage: string;
 
   constructor(private eltiemposervice: EltiempoapiService, private firebase: FirebaseService, private firestore: FirestoreService) { }
 
@@ -22,13 +23,12 @@ export class EltiempoisobarasComponent  implements OnInit {
       if(uidUsuario) {
         this.firestore.getUsuario(uidUsuario).then( usuario => {
           if(usuario) {
-            console.log('Este es el usuario: ', usuario);
             this.eltiemposervice.getisobarasconapi(usuario.apieltiempo).subscribe({
               next: (response) => {
                 this.mapa = URL.createObjectURL(response);
               },
               error: (error) => {
-                console.log('Éste es el error: ', error)
+                this.errorMessage = error;
               }
             })
           }

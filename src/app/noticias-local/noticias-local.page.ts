@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonThumbnail, IonContent, IonHeader, IonTitle, IonToolbar, IonText, IonList, IonListHeader, IonLabel, IonItem, IonCard, IonGrid, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonThumbnail, IonContent, IonHeader, IonText, IonLabel, IonItem, IonCard, IonGrid, IonSpinner } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
 import { NewsApiService } from '../services/newsapi.service';
 import { RouterLink } from '@angular/router';
@@ -13,7 +13,7 @@ import { FirestoreService } from '../services/firestore.service';
   templateUrl: './noticias-local.page.html',
   styleUrls: ['./noticias-local.page.scss'],
   standalone: true,
-  imports: [IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonGrid, IonCard, IonThumbnail, IonItem, IonLabel, IonListHeader, IonList, IonText, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, HeaderComponent]
+  imports: [IonSpinner, IonGrid, IonCard, IonThumbnail, IonItem, IonLabel, IonText, IonContent, IonHeader, CommonModule, FormsModule, RouterLink, HeaderComponent]
 })
 export class NoticiasLocalPage implements OnInit {
 
@@ -34,7 +34,7 @@ export class NoticiasLocalPage implements OnInit {
                 this.noticias = respuesta;
               },
               error: (error) => {
-                console.log('Éste es el error: ', error)
+                this.errorMessage = error;
               }
             })
           }

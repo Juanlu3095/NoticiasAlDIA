@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonToast, ToastController, IonContent, IonHeader, IonTitle, IonToolbar, IonText, IonGrid, IonRow, IonCol, IonIcon, IonList, IonItemGroup, IonItemDivider, IonLabel, IonItem, IonButtons, IonBackButton, IonButton, IonAlert, IonInput, IonModal } from '@ionic/angular/standalone';
+import { ToastController, IonContent, IonHeader, IonToolbar, IonText, IonGrid, IonRow, IonCol, IonIcon, IonList, IonItemGroup, IonItemDivider, IonLabel, IonItem, IonButtons, IonBackButton, IonButton, IonAlert, IonInput, IonModal } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
 import { arrowBackSharp, personCircleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -15,7 +15,7 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonModal, IonInput, IonAlert, IonToast, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonItemDivider, IonItemGroup, IonList, IonIcon, IonCol, IonRow, IonGrid, IonText, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent]
+  imports: [ReactiveFormsModule, IonModal, IonInput, IonAlert, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonItemDivider, IonItemGroup, IonList, IonIcon, IonCol, IonRow, IonGrid, IonText, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, HeaderComponent]
 })
 export class PerfilPage implements OnInit {
 
@@ -29,14 +29,12 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.firebase.comprobarUsuario().then( res => {
-      console.log(res);
       
       if(res !== null) {
         this.idUser = res;
         this.firestore.getUsuario(this.idUser).then( respuesta => {
           if (respuesta) {
             this.user = respuesta;
-            console.log(this.user)
 
             // Inyectamos los valores en el form Group del modal para indicar los valores iniciales
             this.ajustesForm.patchValue({
@@ -57,7 +55,6 @@ export class PerfilPage implements OnInit {
   }
 
   logout(){
-    console.log('adios');
     this.firebase.logout();
   }
 
@@ -107,7 +104,6 @@ export class PerfilPage implements OnInit {
 
     if(this.ajustesForm.valid) {
     this.firestore.setUsuario(this.idUser, newapinoticias, newccaa, newlocalidad, newapiaemet, newmunicipio).then( res => {
-      console.log(res);
       if(res) {
         this.user = res;
       }

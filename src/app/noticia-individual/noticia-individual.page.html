@@ -10,6 +10,7 @@
     </ion-buttons>
   </ion-toolbar>
  
+  <!-- Mostrar la noticia si hay -->  
   @if (noticia) {
   <ion-text class="ion-text-center">
     <h1 class="page-title">{{ noticia.title }}</h1>
@@ -35,10 +36,18 @@
     </ion-card>
   </ion-grid>
 
+  <!-- Mensaje de error -->
   } @else if (errorMessage) {
     <ion-text class="ion-text-center">
       <h1 class="page-title">{{ errorMessage }}</h1>
     </ion-text>
+
+  <!-- Spinner + Mensaje cargando -->
+  } @else {
+    <ion-item class="ion-margin ion-estado">
+      <ion-spinner color="primary" class="ion-margin-end"></ion-spinner>
+      <ion-text>Cargando...</ion-text>
+    </ion-item>
   }
 
 </ion-content>

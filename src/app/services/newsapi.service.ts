@@ -27,6 +27,18 @@ export class NewsApiService {
     })
   }
 
+  // Obtenemos la noticia concreta por medio de la url (La API no permite usar la id para pasarla por parámetro). Usamos la Apikey desde la base de datos.
+  getIndividualNewConApi(url:string, apikeynoticias:string): Observable<any> {
+
+    return this.http.get(this.endpointIndividualNew, {
+      params: {
+        'api-key': apikeynoticias,
+        'url': url,
+        'analyze': false // Extrae entidades si es true
+      }
+    })
+  }
+
   // Obtenemos noticias por el lugar donde ocurre. Usado para pruebas en desarrollo.
   getNewsByPlace(entity: string) {
     return this.http.get(this.endpoint, {

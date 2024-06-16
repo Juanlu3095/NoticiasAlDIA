@@ -1,48 +1,64 @@
-<ion-card *ngFor="let dia of datosAemet">
-  <ion-card-header>
-    <ion-grid>
-      <ion-row class="row-local">
-        <ion-col size="7">
-          <ion-card-subtitle>{{dia.fecha | date:'longDate'}}</ion-card-subtitle>
-          <ion-card-title >{{ municipio }}</ion-card-title>
-        </ion-col>
-          
-        <ion-col class="col-icon">
-          <ion-img class="card-icon" src="../../assets/dia-y-noche.png" alt="icono-tiempo"></ion-img>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card-header>
+<!-- Mostrar datos si los hay -->
+@if(datosAemet && municipio) {
+  <ion-card *ngFor="let dia of datosAemet">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row class="row-local">
+          <ion-col size="7">
+            <ion-card-subtitle>{{dia.fecha | date:'longDate'}}</ion-card-subtitle>
+            <ion-card-title >{{ municipio }}</ion-card-title>
+          </ion-col>
+            
+          <ion-col class="col-icon">
+            <ion-img class="card-icon" src="../../assets/dia-y-noche.png" alt="icono-tiempo"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+  
+    <ion-card-content>
+  
+      <!-- TABLA DE DATOS METEOROLÓGICOS -->
+      <ion-grid>
+        <ion-row class="ion-text-center">
+          <ion-col class="col col-header">Prob. Lluvia</ion-col>
+          <ion-col class="col">{{ dia.probPrecipitacion[this.selectedSegment].value}}%</ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-text-center">
+          <ion-col class="col col-header">Estado cielo</ion-col>
+          <ion-col class="col">{{ dia.estadoCielo[this.selectedSegment].descripcion }}</ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-text-center">
+          <ion-col class="col col-header">Viento</ion-col>
+          <ion-col class="col">{{ dia.viento[this.selectedSegment].velocidad }} km/h {{ dia.viento[this.selectedSegment].direccion }}</ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-text-center">
+          <ion-col class="col col-header">Tª mín/máx</ion-col>
+          <ion-col class="col">{{dia.temperatura.minima}}/{{dia.temperatura.maxima}} °C</ion-col>
+        </ion-row>
+  
+        <ion-row class="ion-text-center">
+          <ion-col class="col col-header">Hum. Rel. mín/máx</ion-col>
+          <ion-col class="col">{{dia.humedadRelativa.minima}}/{{dia.humedadRelativa.maxima}} %</ion-col>
+        </ion-row>
+      </ion-grid>
+  
+    </ion-card-content>
+  </ion-card>
 
-  <ion-card-content>
+<!-- Mensaje de error -->
+} @else if (errorMessage) {
+  <div class="ion-margin">
+    <ion-text>{{errorMessage}}</ion-text>
+  </div>
 
-    <!-- TABLA DE DATOS METEOROLÓGICOS -->
-    <ion-grid>
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Prob. Lluvia</ion-col>
-        <ion-col class="col">{{ dia.probPrecipitacion[this.selectedSegment].value}}%</ion-col>
-      </ion-row>
-
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Estado cielo</ion-col>
-        <ion-col class="col">{{ dia.estadoCielo[this.selectedSegment].descripcion }}</ion-col>
-      </ion-row>
-
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Viento</ion-col>
-        <ion-col class="col">{{ dia.viento[this.selectedSegment].velocidad }} km/h {{ dia.viento[this.selectedSegment].direccion }}</ion-col>
-      </ion-row>
-
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Tª mín/máx</ion-col>
-        <ion-col class="col">{{dia.temperatura.minima}}/{{dia.temperatura.maxima}} °C</ion-col>
-      </ion-row>
-
-      <ion-row class="ion-text-center">
-        <ion-col class="col col-header">Hum. Rel. mín/máx</ion-col>
-        <ion-col class="col">{{dia.humedadRelativa.minima}}/{{dia.humedadRelativa.maxima}} %</ion-col>
-      </ion-row>
-    </ion-grid>
-
-  </ion-card-content>
-</ion-card>
+<!-- Spinner + Mensaje cargando -->
+} @else {
+  <ion-item class="ion-margin ion-estado">
+    <ion-spinner color="primary" class="ion-margin-end"></ion-spinner>
+    <ion-text>Cargando...</ion-text>
+  </ion-item>
+}

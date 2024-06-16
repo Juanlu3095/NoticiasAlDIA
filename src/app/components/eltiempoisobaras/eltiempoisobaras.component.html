@@ -1,1 +1,18 @@
-<ion-img [src]="this.mapa" alt="Mapa de isobaras"></ion-img>
+<!-- Mostrar mapa si lo hay -->  
+@if(mapa) {
+    <ion-img [src]="this.mapa" alt="Mapa de isobaras"></ion-img>
+
+<!-- Mensaje de error -->
+} @else if (errorMessage) {
+    <div class="ion-margin">
+        <ion-text>{{errorMessage}}</ion-text>
+    </div>
+
+<!-- Spinner + Mensaje cargando -->
+} @else {
+    <ion-item class="ion-margin ion-estado">
+        <ion-spinner color="primary" class="ion-margin-end"></ion-spinner>
+        <ion-text>Cargando...</ion-text>
+    </ion-item>
+}
+
