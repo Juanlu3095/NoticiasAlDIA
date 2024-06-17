@@ -56,6 +56,7 @@ export class PerfilPage implements OnInit {
 
   logout(){
     this.firebase.logout();
+    this.idUser = ''; // Si no se hace esto, aunque cerremos sesión se mantiene idUser
   }
 
   // Alerta para redirigir al SEPE donde poder ver los códigos de municipios
