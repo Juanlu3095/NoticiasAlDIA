@@ -52,7 +52,7 @@ export class FirebaseService {
   logout(){
     signOut(this.auth).then( () => {
       this.menucontroller.enable(false, 'main-content');
-      //this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     });
     
   }
