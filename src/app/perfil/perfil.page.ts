@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ToastController, IonContent, IonHeader, IonToolbar, IonText, IonGrid, IonRow, IonCol, IonIcon, IonList, IonItemGroup, IonItemDivider, IonLabel, IonItem, IonButtons, IonBackButton, IonButton, IonAlert, IonInput, IonModal } from '@ionic/angular/standalone';
+import { IonSelect, IonSelectOption, ToastController, IonContent, IonHeader, IonToolbar, IonText, IonGrid, IonRow, IonCol, IonIcon, IonList, IonItemGroup, IonItemDivider, IonLabel, IonItem, IonButtons, IonBackButton, IonButton, IonAlert, IonInput, IonModal } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../header/header.component';
 import { arrowBackSharp, personCircleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -15,13 +15,14 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonModal, IonInput, IonAlert, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonItemDivider, IonItemGroup, IonList, IonIcon, IonCol, IonRow, IonGrid, IonText, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, HeaderComponent]
+  imports: [ReactiveFormsModule, IonSelect, IonSelectOption, IonModal, IonInput, IonAlert, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonItemDivider, IonItemGroup, IonList, IonIcon, IonCol, IonRow, IonGrid, IonText, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, HeaderComponent]
 })
 export class PerfilPage implements OnInit {
 
   idUser: string;
   user: Usuario = {} as Usuario; // Iniciamos user como un objeto vacío para que no haya problemas de carga
   ajustesFrom: FormGroup;
+  apikeynoticias: any;
 
   constructor( private toastController: ToastController, private firebase: FirebaseService, private firestore: FirestoreService) {
     addIcons({ arrowBackSharp, personCircleOutline });
@@ -51,6 +52,12 @@ export class PerfilPage implements OnInit {
       }
     });
 
+    // Obtenemos api keys de firestore
+    this.apikeynoticias = this.firestore.getApikeysNoticias().then( res => {
+      console.log(res);
+      this.apikeynoticias = res;
+    });
+    
     
   }
 

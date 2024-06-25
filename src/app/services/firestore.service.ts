@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { Usuario } from '../interfaces/usuario';
 
 @Injectable({
@@ -84,5 +84,12 @@ export class FirestoreService {
     } else {
       return null;
     }
+  }
+
+  // Obtenemos todas las apikeys de noticias
+  async getApikeysNoticias(){
+    const apikeyNoticiasCollection = collection(this.db, 'Apikeynoticias');
+    const query = await getDocs(apikeyNoticiasCollection);
+    return query.docs.map(doc => doc.data());
   }
 }

@@ -115,8 +115,20 @@
           <p class="ion-text-center">Modifica los ajustes de tu perfil:</p>
 
           <form [formGroup]="ajustesForm" (ngSubmit)="confirmar()" class="ion-margin">
-          <ion-item>
+
+          <!-- <ion-item>
             <ion-input label="Tu Api Key de noticias" labelPlacement="floating" type="text" formControlName="newapinoticias" ngDefaultControl></ion-input>
+          </ion-item> -->
+
+          <br>
+
+          <!-- Input select para obtener las api keys desde firestore -->
+          <ion-item>
+            <ion-select label="Tu Api Key de noticias" labelPlacement="floating" interface="action-sheet" formControlName="newapinoticias" ngDefaultControl>
+              @for (item of apikeynoticias; track item.apikey) {
+                <ion-select-option value="{{ item.apikey }}">{{ item.apikey }}</ion-select-option>
+              }
+            </ion-select>
           </ion-item>
 
           <br>

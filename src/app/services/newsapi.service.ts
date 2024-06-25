@@ -120,7 +120,7 @@ export class NewsApiService {
       params: {
         'api-key': apikeynoticias,
         'text': keyword, // Palabra clave
-        'earliest-publish-date': '2024-05-01', // Fecha más antigua de publicación
+        //'earliest-publish-date': '2024-05-01', // Fecha más antigua de publicación
         'sort': 'publish-time', // Ordenar por fecha de publicación
         'sort-direction': 'DESC', // Ordenar por orden descendiente: De más moderno a más antiguo
         'source-countries': 'es', // País del diario que redacta la noticia
