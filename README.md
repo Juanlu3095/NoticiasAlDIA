@@ -18,3 +18,5 @@ Para instalar la aplicación es necesario realizar el siguiente procedimiento:
 - Visualiza tu aplicación en tu IDE para aplicaciones móviles: Xcode en Ios y Android Studio en Android. Usa el comando "npx cap open android" o "npx cap open ios" para abrir el   
   proyecto con su respectivo editor de código para aplicaciones móviles.
 - Compila la aplicación en el editor de código para apps móviles.
+- Obtener las apikeys correspondientes: World News API (https://worldnewsapi.com/) y AEMET OpenData (https://opendata.aemet.es/).
+- Instalar la aplicación en el móvil y registrarse en la aplicación con las api keys.
