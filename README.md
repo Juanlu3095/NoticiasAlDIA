@@ -15,6 +15,6 @@ Para instalar la aplicación es necesario realizar el siguiente procedimiento:
 - Instalar capacitor para crear la app móvil. Por medio del comando "npm install@capacitor/android" o "npm install@capacitor/ios" añadimos android o ios según convenga. Recuerda que
   debemos instalar la version que nos ponga 'package.json'. Para ello sería por ejemplo: "npm install@capacitor/android@6.0.0".
 - Creamos la versión móvil de ios/android: Ejecutamos "npx cap add android" o "npx cap add ios".
-- Visualiza tu aplicación en tu IDE para aplicaciones móviles: Xcode en Ios y Android Studio. Usa el comando "npx cap open android" o "npx cap open ios" para abrir el proyecto con su
-  respectivo editor de código para aplicaciones móviles.
+- Visualiza tu aplicación en tu IDE para aplicaciones móviles: Xcode en Ios y Android Studio en Android. Usa el comando "npx cap open android" o "npx cap open ios" para abrir el   
+  proyecto con su respectivo editor de código para aplicaciones móviles.
 - Compila la aplicación en el editor de código para apps móviles.
